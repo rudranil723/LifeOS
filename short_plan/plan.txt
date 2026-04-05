@@ -1,0 +1,15 @@
+Week-by-week build plan
+Week 1 — Skeleton + Chat
+Get the layout and AI talking first. Start with the 3-panel UI (sidebar → chat → analytics), wire up NextAuth for login, then create /api/chat that calls GPT-4o. The chat should feel alive before you build anything else. Use useChat from Vercel AI SDK — saves you a ton of streaming boilerplate.
+Week 2 — Goals + Planner
+Build the goals CRUD (add goal → AI breaks it into steps automatically). Then build the planner: user hits "Plan my day", the PlannerAgent reads their active goals + deadlines from DB, asks GPT to generate a schedule, returns time blocks. Show them in a clean timeline view.
+Week 3 — Memory + Coach + Reminders
+This is the wow week. Add the memory system using pgvector (Supabase free tier supports it): every conversation gets embedded and stored, so the AI actually remembers "you mentioned you have an ML exam next week." Then wire the CoachAgent — user says "teach me transformers", it breaks into lessons, gives tasks, tracks progress in DB. Finally add Twilio for WhatsApp reminders (free sandbox works for demo).
+Week 4 — Analytics + Polish + Deploy
+Build the analytics dashboard (study hours per day, goal completion rate, streak calendar). Add voice input via Web Speech API (3 lines of JS). Deploy on Vercel + Supabase. Record a demo video showing the full loop: voice → chat → plan generated → goal tracked → reminder sent.
+
+Key technical decisions
+Why pgvector over Pinecone — Supabase gives you Postgres + pgvector in one free-tier instance. Fewer moving parts for an MVP. Switch to Pinecone only if you need scale.
+Why LangChain for agents — You can swap GPT-4o for a cheaper model mid-chain, add tools (web search, calendar read), and chain agents together cleanly. Direct OpenAI calls get messy fast once you have 4 agents.
+Why Next.js API routes over Express — Fewer repos, easier deploy, Vercel handles serverless scaling. Move to Express only if you need WebSockets for real-time (Socket.io on a separate server).
+Prisma schema hint — your main tables: User, Goal (linked to Step[]), DayPlan (linked to TimeBlock[]), LearningSession, Memory (embedding + content), Reminder.
