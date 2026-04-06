@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal AI | Goals &amp; Initiatives</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1a1b21",
+                        "on-primary": "#00363a",
+                        "on-secondary": "#08218a",
+                        "surface-container-lowest": "#0d0e13",
+                        "inverse-surface": "#e3e1e9",
+                        "surface-bright": "#38393f",
+                        "on-primary-container": "#006970",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dee0ff",
+                        "on-tertiary": "#3c0090",
+                        "secondary-container": "#2c3ea3",
+                        "error-container": "#93000a",
+                        "on-background": "#e3e1e9",
+                        "primary-fixed": "#7df4ff",
+                        "primary": "#dbfcff",
+                        "outline": "#849495",
+                        "surface-tint": "#00dbe9",
+                        "on-tertiary-fixed-variant": "#5700c9",
+                        "surface-container-highest": "#34343a",
+                        "surface-container-high": "#292a2f",
+                        "outline-variant": "#3b494b",
+                        "primary-container": "#00f0ff",
+                        "inverse-primary": "#006970",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#d1bcff",
+                        "on-secondary-container": "#a8b4ff",
+                        "tertiary-container": "#e1d2ff",
+                        "on-surface": "#e3e1e9",
+                        "surface-container": "#1e1f25",
+                        "on-surface-variant": "#b9cacb",
+                        "on-secondary-fixed": "#00105c",
+                        "surface-variant": "#34343a",
+                        "tertiary": "#faf3ff",
+                        "on-secondary-fixed-variant": "#293ca0",
+                        "inverse-on-surface": "#2f3036",
+                        "primary-fixed-dim": "#00dbe9",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#7213ff",
+                        "surface-dim": "#121318",
+                        "secondary": "#bac3ff",
+                        "secondary-fixed-dim": "#bac3ff",
+                        "background": "#121318",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-primary-fixed": "#002022",
+                        "on-error": "#690005",
+                        "surface": "#121318",
+                        "on-tertiary-fixed": "#23005b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(52, 52, 58, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background-color: #121318;
+            color: #e3e1e9;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 border-r border-white/5 bg-[#0d0e13] flex flex-col py-8 px-4 font-['Manrope'] font-semibold shrink-0">
+<div class="flex items-center gap-3 mb-10 px-4">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#dbfcff] to-[#00dbe9] flex items-center justify-center shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+<span class="material-symbols-outlined text-[#00363a]" data-icon="ghost">mist</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-[#00f0ff] leading-none">The Ghost</h2>
+<p class="text-[10px] text-gray-500 tracking-widest uppercase mt-1">Ambient Companion</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00f0ff]" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00f0ff]" data-icon="forum">forum</span>
+<span>Chat</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00f0ff]" data-icon="calendar_today">calendar_today</span>
+<span>Planner</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00f0ff]" data-icon="school">school</span>
+<span>Coach</span>
+</a>
+<a class="flex items-center gap-3 text-[#00f0ff] bg-[#00f0ff]/10 rounded-full px-4 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="track_changes" style="font-variation-settings: 'FILL' 1;">track_changes</span>
+<span>Goals</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/5 space-y-2">
+<button class="w-full bg-gradient-to-r from-[#dbfcff] to-[#00dbe9] text-[#002022] py-3 rounded-xl font-bold mb-6 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Initiative
+            </button>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#121318]">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-[#121318]/80 backdrop-blur-xl z-50 flex justify-between items-center px-8 py-4 w-full">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-black tracking-tighter text-[#00f0ff] font-['Manrope']">Ethereal AI</h1>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-[#00f0ff] border-b-2 border-[#00f0ff] font-['Manrope'] font-bold tracking-tight pb-1" href="#">Architecture</a>
+<a class="text-gray-400 hover:text-[#dbfcff] transition-colors font-['Manrope'] font-bold tracking-tight pb-1" href="#">Resources</a>
+<a class="text-gray-400 hover:text-[#dbfcff] transition-colors font-['Manrope'] font-bold tracking-tight pb-1" href="#">Node Status</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-[#1a1b21] rounded-full px-4 py-1.5 flex items-center gap-2 border border-white/5">
+<span class="material-symbols-outlined text-gray-500 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-48 text-gray-300" placeholder="Search initiatives..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-gray-400 hover:text-[#00f0ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-gray-400 hover:text-[#00f0ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-[#00f0ff]/30 ml-2">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a digital artist with neon blue lighting accents, professional headshot style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1Cnk9FO8Db8GBm9cUw-iy15acbm8UP79sSlG9izLl_Mwd-VSLmiYJIrGekgzLyG1dELaO_wKlUQaDk7b1sZJK1OTn8d27TLV1VKtn2JjXqg1VlGBGXbd18KzysrpAvOxbxF7DU-k_tV0QP2Qqc6j-_byS6kbzuKQNHRQSJUQPJ6KAp2Og1ymR4vHhXhhzvFjoHvRkIKGyd5suDz-XeeoJ50azBOkzGd4wYfnIPOxsD2YrB8yJlYS1RL9p2mlqaEr2bMVEk1bzgPSH"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<section class="flex-1 overflow-y-auto p-8">
+<div class="max-w-6xl mx-auto">
+<!-- Page Header & Tabs -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+<div>
+<h2 class="text-4xl font-['Manrope'] font-extrabold tracking-tight text-white mb-2">Core Initiatives</h2>
+<p class="text-gray-500 font-['Inter']">Managing high-level objectives and their operational task cycles.</p>
+</div>
+<div class="flex bg-[#1a1b21] p-1 rounded-2xl border border-white/5">
+<button class="px-6 py-2 rounded-xl bg-[#292a2f] text-[#00f0ff] font-semibold text-sm transition-all">Goals</button>
+<button class="px-6 py-2 rounded-xl text-gray-500 hover:text-gray-300 font-semibold text-sm transition-all">Tasks</button>
+</div>
+</div>
+<!-- Bento Grid for Goals -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+<!-- Goal Card 1 -->
+<div class="lg:col-span-2 group relative overflow-hidden bg-[#1a1b21] rounded-3xl p-8 border-l-4 border-[#00f0ff] transition-all hover:bg-[#1e1f25]">
+<div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-2 bg-white/5 rounded-lg hover:bg-[#00f0ff]/10 text-gray-400 hover:text-[#00f0ff]"><span class="material-symbols-outlined text-sm" data-icon="edit">edit</span></button>
+<button class="p-2 bg-white/5 rounded-lg hover:bg-red-500/10 text-gray-400 hover:text-red-400"><span class="material-symbols-outlined text-sm" data-icon="delete">delete</span></button>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-2xl bg-[#00f0ff]/10 flex items-center justify-center text-[#00f0ff]">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<div>
+<span class="text-[10px] text-[#00f0ff] font-bold tracking-widest uppercase">Strategic Alpha</span>
+<h3 class="text-xl font-['Manrope'] font-bold text-white">Scale Neural Architecture</h3>
+</div>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed mb-8 max-w-lg">Redesigning the core inference engine to support asynchronous multi-modal processing across regional nodes.</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-gray-500">Progress</span>
+<span class="text-xs font-bold text-[#00f0ff]">68%</span>
+</div>
+<div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-6">
+<div class="h-full bg-gradient-to-r from-[#00dbe9] to-[#dbfcff] w-[68%] rounded-full"></div>
+</div>
+<div class="flex items-center gap-4 text-xs">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-[#1a1b21] bg-gray-800"></div>
+<div class="w-6 h-6 rounded-full border border-[#1a1b21] bg-gray-700"></div>
+<div class="w-6 h-6 rounded-full border border-[#1a1b21] bg-gray-600 flex items-center justify-center text-[8px] font-bold">+2</div>
+</div>
+<span class="text-gray-500">12 linked tasks</span>
+<span class="text-gray-500 ml-auto flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="calendar_month">calendar_month</span> Nov 24, 2024</span>
+</div>
+</div>
+<!-- Goal Card 2 (Quick View) -->
+<div class="bg-[#1a1b21] rounded-3xl p-8 border border-white/5 flex flex-col justify-between group">
+<div>
+<div class="flex justify-between items-start mb-6">
+<div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+</div>
+<div class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-[10px] font-bold">ACTIVE</div>
+</div>
+<h3 class="text-lg font-['Manrope'] font-bold text-white mb-2">UI Refraction System</h3>
+<p class="text-gray-500 text-xs leading-relaxed">Implementing glassmorphism standards across all mobile modules.</p>
+</div>
+<div class="mt-8">
+<div class="flex items-center gap-2 mb-4">
+<span class="text-[10px] text-gray-500 font-bold">HEALTH:</span>
+<div class="flex gap-1">
+<div class="w-4 h-1 rounded-full bg-green-500"></div>
+<div class="w-4 h-1 rounded-full bg-green-500"></div>
+<div class="w-4 h-1 rounded-full bg-green-500/30"></div>
+</div>
+</div>
+<button class="w-full py-2 bg-white/5 group-hover:bg-white/10 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+                                Inspect Detail
+                             </button>
+</div>
+</div>
+</div>
+<!-- Interactive Task List Section -->
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-lg font-['Manrope'] font-bold text-white">Active Task Streams</h4>
+<button class="text-xs text-[#00f0ff] font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Sort by Urgency
+                    </button>
+</div>
+<!-- Modern Data Table / List -->
+<div class="bg-[#0d0e13] rounded-[2rem] overflow-hidden border border-white/5">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#1a1b21]/50">
+<th class="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Action Item</th>
+<th class="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Nexus Goal</th>
+<th class="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Priority</th>
+<th class="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Cadence</th>
+<th class="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded border border-[#00f0ff]/50 flex items-center justify-center cursor-pointer hover:bg-[#00f0ff]/10">
+<span class="material-symbols-outlined text-[14px] text-transparent" data-icon="check">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-white">Optimize CUDA kernels</p>
+<p class="text-[10px] text-gray-500">Sub-routine 4.2</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#00f0ff]"></div>
+<span class="text-xs text-gray-300">Neural Architecture</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-red-500/10 text-red-400 text-[10px] font-bold rounded">CRITICAL</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-gray-400">Daily Standup</span>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-gray-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="p-1.5 text-gray-500 hover:text-red-400 transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded border border-white/20 bg-[#00f0ff] flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[14px] text-[#00363a]" data-icon="check">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-gray-500 line-through">Draft Tokenomics Whitepaper</p>
+<p class="text-[10px] text-gray-600">Phase 1 Complete</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-gray-600">
+<div class="w-2 h-2 rounded-full bg-gray-600"></div>
+<span class="text-xs">Alpha Funding</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-white/5 text-gray-500 text-[10px] font-bold rounded">LOW</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-gray-500">Weekly Sync</span>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-gray-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-lg" data-icon="history">history</span></button>
+<button class="p-1.5 text-gray-500 hover:text-red-400 transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded border border-[#00f0ff]/50 flex items-center justify-center cursor-pointer hover:bg-[#00f0ff]/10">
+<span class="material-symbols-outlined text-[14px] text-transparent" data-icon="check">check</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-white">Audit Mesh Security</p>
+<p class="text-[10px] text-gray-500">External Review</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-purple-500"></div>
+<span class="text-xs text-gray-300">Architecture</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-amber-500/10 text-amber-400 text-[10px] font-bold rounded">MEDIUM</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-gray-400">Monthly Audit</span>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-gray-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="p-1.5 text-gray-500 hover:text-red-400 transition-colors"><span class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Stats -->
+<div class="mt-8 flex gap-8 items-center px-4">
+<div class="flex items-center gap-3">
+<span class="text-2xl font-['Manrope'] font-bold text-white">42</span>
+<span class="text-[10px] text-gray-500 uppercase tracking-tighter">Total Tasks<br/>Pending</span>
+</div>
+<div class="h-8 w-px bg-white/10"></div>
+<div class="flex items-center gap-3">
+<span class="text-2xl font-['Manrope'] font-bold text-[#00f0ff]">89%</span>
+<span class="text-[10px] text-gray-500 uppercase tracking-tighter">Goal Velocity<br/>This Month</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay "Modal" Structure (Form representation) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#121318]/90 backdrop-blur-md pointer-events-none opacity-0">
+<!-- Hidden by default, representing the Create Goal/Task modal structure -->
+<div class="w-full max-w-lg glass-panel rounded-[2.5rem] p-10 pointer-events-auto">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h2 class="text-2xl font-['Manrope'] font-extrabold text-white">New Initiative</h2>
+<p class="text-sm text-gray-500">Define a high-level strategic node.</p>
+</div>
+<button class="p-2 hover:bg-white/5 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<form class="space-y-6">
+<div>
+<label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Initiative Title</label>
+<input class="w-full bg-[#1a1b21] border border-white/5 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-[#00f0ff] focus:border-[#00f0ff]" placeholder="e.g. Project Quantum Leap" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Priority</label>
+<select class="w-full bg-[#1a1b21] border border-white/5 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-[#00f0ff]">
+<option>Critical</option>
+<option>High</option>
+<option>Medium</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Deadline</label>
+<input class="w-full bg-[#1a1b21] border border-white/5 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-[#00f0ff]" type="date"/>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Executive Summary</label>
+<textarea class="w-full bg-[#1a1b21] border border-white/5 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-[#00f0ff]" placeholder="Core objectives and success metrics..." rows="3"></textarea>
+</div>
+<div class="pt-4">
+<button class="w-full py-4 bg-gradient-to-r from-[#dbfcff] to-[#00dbe9] text-[#002022] rounded-2xl font-bold tracking-tight text-lg shadow-[0_8px_20px_rgba(0,240,255,0.2)] hover:scale-[0.98] transition-all" type="submit">
+                        Initialize Node
+                    </button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

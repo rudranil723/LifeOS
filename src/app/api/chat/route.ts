@@ -1,68 +1,93 @@
-import { google } from "@ai-sdk/google";
-import { streamText } from "ai";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import db from "@/lib/db";
 
-// Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { userId } = await auth();
-  if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return new Response("Unauthorized", { status: 401 });
+    }
 
-  const { messages } = await req.json();
+    const clerkUser = await currentUser();
+    if (clerkUser) {
+      await db.user.upsert({
+        where: { id: userId },
+        update: {},
+        create: {
+          id: userId,
+          email: clerkUser.emailAddresses[0]?.emailAddress ?? `${userId}@unknown.com`,
+        },
+      });
+    }
 
-  // Fetch contextual user data concurrently
-  const [goals, tasks, memories] = await Promise.all([
-    db.goal.findMany({ where: { userId, status: "IN_PROGRESS" } }),
-    db.task.findMany({ where: { userId, status: { not: "DONE" } } }),
-    db.memory.findMany({ where: { userId } }),
-  ]);
+    const { messages } = await req.json();
 
-  // Build the system prompt using the user's specific persona request
-  const systemPrompt = `You are LifeOS, a focused, intelligent personal operating system. 
-You are direct and actionable — not overly friendly or chatty. 
-You help the user plan their day, learn new skills, track goals, and stay accountable. 
+    const [goals, tasks, memories] = await Promise.all([
+      db.goal.findMany({ where: { userId, status: "IN_PROGRESS" } }),
+      db.task.findMany({ where: { userId, status: { not: "DONE" } } }),
+      db.memory.findMany({ where: { userId } }),
+    ]);
+
+    const systemPrompt = `You are LifeOS, a focused, intelligent personal operating system.
+You are direct and actionable — not overly friendly or chatty.
+You help the user plan their day, learn new skills, track goals, and stay accountable.
 Tone: calm, smart, minimal.
 
 --- CURRENT CONTEXT ---
-Active Goals: ${goals.length ? JSON.stringify(goals.map(g => ({title: g.title, deadline: g.deadline}))) : "None"}
-Pending Tasks: ${tasks.length ? JSON.stringify(tasks.map(t => ({title: t.title, dueDate: t.dueDate}))) : "None"}
-User Memories & Preferences: ${memories.length ? JSON.stringify(memories.map(m => m.content)) : "None"}
+Active Goals: ${goals.length ? JSON.stringify(goals.map((g: any) => ({ title: g.title, deadline: g.deadline }))) : "None"}
+Pending Tasks: ${tasks.length ? JSON.stringify(tasks.map((t: any) => ({ title: t.title, dueDate: t.dueDate }))) : "None"}
+User Memories & Preferences: ${memories.length ? JSON.stringify(memories.map((m: any) => m.content)) : "None"}
 -----------------------
+Be concise and actionable.`;
 
-Use the context above to inform your answers, but do not explicitly recite the context unless asked. Provide concise and valuable insights.`;
-
-  // Extract the latest user message to store in DB
-  const latestMessage = messages[messages.length - 1];
-  if (latestMessage && latestMessage.role === "user") {
-    await db.chatMessage.create({
-      data: {
-        userId,
-        role: "user",
-        content: latestMessage.content,
-      },
-    });
-  }
-
-  // Create stream via Gemini
-  const result = streamText({
-    model: google('gemini-1.5-flash'),
-    system: systemPrompt,
-    messages,
-    async onFinish({ text }) {
-      // Persist the AI's response so it can be loaded in future sessions
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === "user") {
       await db.chatMessage.create({
-        data: {
-          userId,
-          role: "assistant",
-          content: text,
-        },
+        data: { userId, role: "user", content: lastMessage.content },
       });
-    },
-  });
+    }
 
-  return result.toDataStreamResponse();
+    // Call OpenRouter directly - no SDK version issues
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "openrouter/free",
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...messages.map((m: any) => ({ role: m.role, content: m.content })),
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err?.error?.message ?? JSON.stringify(err));
+    }
+
+    const data = await response.json();
+    const text = data.choices?.[0]?.message?.content ?? "";
+
+    if (!text) throw new Error("Empty response from AI.");
+
+    await db.chatMessage.create({
+      data: { userId, role: "assistant", content: text },
+    });
+
+    return new Response(text, {
+      headers: { "Content-Type": "text/plain" },
+    });
+
+  } catch (error: any) {
+    console.error("Chat API Error:", error?.message ?? error);
+    return new Response(
+      JSON.stringify({ error: error?.message ?? "Unknown error" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }

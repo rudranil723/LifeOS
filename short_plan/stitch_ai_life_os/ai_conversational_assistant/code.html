@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal AI | Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1a1b21",
+                        "on-primary": "#00363a",
+                        "on-secondary": "#08218a",
+                        "surface-container-lowest": "#0d0e13",
+                        "inverse-surface": "#e3e1e9",
+                        "surface-bright": "#38393f",
+                        "on-primary-container": "#006970",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dee0ff",
+                        "on-tertiary": "#3c0090",
+                        "secondary-container": "#2c3ea3",
+                        "error-container": "#93000a",
+                        "on-background": "#e3e1e9",
+                        "primary-fixed": "#7df4ff",
+                        "primary": "#dbfcff",
+                        "outline": "#849495",
+                        "surface-tint": "#00dbe9",
+                        "on-tertiary-fixed-variant": "#5700c9",
+                        "surface-container-highest": "#34343a",
+                        "surface-container-high": "#292a2f",
+                        "outline-variant": "#3b494b",
+                        "primary-container": "#00f0ff",
+                        "inverse-primary": "#006970",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#d1bcff",
+                        "on-secondary-container": "#a8b4ff",
+                        "tertiary-container": "#e1d2ff",
+                        "on-surface": "#e3e1e9",
+                        "surface-container": "#1e1f25",
+                        "on-surface-variant": "#b9cacb",
+                        "on-secondary-fixed": "#00105c",
+                        "surface-variant": "#34343a",
+                        "tertiary": "#faf3ff",
+                        "on-secondary-fixed-variant": "#293ca0",
+                        "inverse-on-surface": "#2f3036",
+                        "primary-fixed-dim": "#00dbe9",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#7213ff",
+                        "surface-dim": "#121318",
+                        "secondary": "#bac3ff",
+                        "secondary-fixed-dim": "#bac3ff",
+                        "background": "#121318",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-primary-fixed": "#002022",
+                        "on-error": "#690005",
+                        "surface": "#121318",
+                        "on-tertiary-fixed": "#23005b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { background-color: #1a1b21; }
+        .glass-panel {
+            background: rgba(52, 52, 58, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3b494b; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Predicted SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-8 px-4 bg-[#0d0e13] w-64 border-r border-white/5 font-['Manrope'] font-semibold">
+<div class="mb-10 px-4">
+<div class="text-lg font-bold text-[#00f0ff] tracking-tighter">The Ghost</div>
+<div class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Ambient Companion</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Chat (ACTIVE) -->
+<a class="flex items-center gap-3 text-[#00f0ff] bg-[#00f0ff]/10 rounded-full px-4 py-2 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span>Chat</span>
+</a>
+<!-- Planner -->
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Planner</span>
+</a>
+<!-- Coach -->
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Coach</span>
+</a>
+<!-- Goals -->
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">track_changes</span>
+<span>Goals</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 space-y-6">
+<button class="w-full bg-gradient-to-br from-[#dbfcff] to-[#00dbe9] text-[#002022] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>New Initiative</span>
+</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full text-sm" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full text-sm" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex flex-col flex-1 relative bg-surface overflow-hidden">
+<!-- Predicted TopAppBar -->
+<header class="bg-[#121318]/80 backdrop-blur-xl w-full top-0 sticky z-30 flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-8">
+<div class="text-xl font-black tracking-tighter text-[#00f0ff] font-headline">Ethereal AI</div>
+<div class="hidden lg:flex items-center gap-6 text-sm font-semibold">
+<a class="text-[#00f0ff] border-b-2 border-[#00f0ff] pb-1" href="#">Contextual Chat</a>
+<a class="text-gray-400 hover:text-[#dbfcff] transition-colors pb-1" href="#">Knowledge Base</a>
+<a class="text-gray-400 hover:text-[#dbfcff] transition-colors pb-1" href="#">System Logs</a>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<div class="flex gap-2">
+<button class="p-2 text-gray-400 hover:text-[#00f0ff] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-gray-400 hover:text-[#00f0ff] transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="w-8 h-8 rounded-full border border-[#00f0ff]/20 overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a man with minimalist glasses in a soft cool neon blue studio lighting environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrLlUo6YXp5l-lEe6RFsh3fIjOgcvZ5ikc-BQtVeXyH7qkuo4U-k64VOmbyRYtqBoy3DD_FrG7MNk5LKXVZwVqKLOr2Mj3OCessAgpmSfPgRpoRolj8iMa-Xk9q1oGRyIeVTeQmR44sN8p_Wy4oIF3mpBZb91_a9Cyq1QWN0DK_Xfd9uhQXAlZS8J2mFVfci3BB1ImQJ9FaEy30D_CPbPuxD76Hgv5mNWTHAkibAA2mlTMX3EDOMlRiRKDOLiSZNwW7nwKqYIRFIFA"/>
+</div>
+</div>
+</header>
+<!-- Chat Content Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Chat History Sidebar -->
+<aside class="hidden xl:flex flex-col w-80 bg-surface-container-lowest border-r border-white/5 p-6 space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-bold text-sm uppercase tracking-widest text-gray-500">History</h2>
+<span class="material-symbols-outlined text-gray-500 text-lg cursor-pointer">filter_list</span>
+</div>
+<div class="space-y-4 overflow-y-auto pr-2">
+<!-- History Items -->
+<div class="group p-4 rounded-xl bg-surface-container-low border-l-4 border-[#00f0ff] cursor-pointer hover:bg-surface-container-high transition-colors">
+<p class="text-sm font-semibold text-on-surface truncate">Quarterly Planning 2024</p>
+<p class="text-xs text-gray-500 mt-1">2 mins ago</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent">
+<p class="text-sm font-medium text-gray-400 truncate">Deep Dive: Smart Home API</p>
+<p class="text-xs text-gray-600 mt-1">3 hours ago</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent">
+<p class="text-sm font-medium text-gray-400 truncate">Morning Routine Optimization</p>
+<p class="text-xs text-gray-600 mt-1">Yesterday</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent">
+<p class="text-sm font-medium text-gray-400 truncate">Recipe: Synthesized Umami</p>
+<p class="text-xs text-gray-600 mt-1">Nov 12</p>
+</div>
+<div class="group p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent">
+<p class="text-sm font-medium text-gray-400 truncate">Workout Logic Upgrade</p>
+<p class="text-xs text-gray-600 mt-1">Nov 10</p>
+</div>
+</div>
+</aside>
+<!-- Main Chat Canvas -->
+<div class="flex-1 flex flex-col relative bg-surface">
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-10">
+<!-- AI Message -->
+<div class="flex items-start gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-full bg-[#00f0ff]/10 flex items-center justify-center text-[#00f0ff] shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="glass-panel p-6 rounded-xl rounded-bl-sm space-y-4">
+<p class="text-on-surface leading-relaxed">
+                                    Good morning. I've analyzed your current trajectory. Based on your recent activity, I suggest we synchronize your <span class="text-[#00f0ff] font-bold">Quarterly Goals</span> with the upcoming project cycle.
+                                </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div class="bg-surface-container-high/50 p-4 rounded-lg border border-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00f0ff]">rocket_launch</span>
+<div>
+<p class="text-xs font-bold uppercase text-gray-500">Suggested Action</p>
+<p class="text-sm">Initiate Phase 2: Design</p>
+</div>
+</div>
+<div class="bg-surface-container-high/50 p-4 rounded-lg border border-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00f0ff]">analytics</span>
+<div>
+<p class="text-xs font-bold uppercase text-gray-500">Impact Analysis</p>
+<p class="text-sm">40% Efficiency Increase</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-start gap-4 max-w-2xl ml-auto flex-row-reverse">
+<div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/10">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a man with minimalist glasses in a soft cool neon blue studio lighting environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKJLdP4E81UiVbhyoLv8ywHUiZ2WtfA0NM-x49UMIKJcF1FXrrqOkm_HXDutefaqohrcBUw3VTiP5Ft80cRh6gYeZlxy7W00oCNEB7d0Dn9FDqcJkRWcujnZkTa3sGw6zT8YpThImnOR0ZI7fvM9JxbaWgsXF0VsO2T21IUJpTv0WGEcsOcUKWz-kNLSUCOHMuLuNShZj9RD3FuxNZRoy2WCcW3rF4XtPbawnniufFwItI-4b7u_Y1pDMc0ySdAGYPLsNCr66l4cO-"/>
+</div>
+<div class="bg-secondary-container p-5 rounded-xl rounded-br-sm text-on-surface">
+<p class="leading-relaxed">That sounds efficient. Let's look at the resource allocation for the design phase. How do the next two weeks look?</p>
+</div>
+</div>
+<!-- AI Message 2 -->
+<div class="flex items-start gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-full bg-[#00f0ff]/10 flex items-center justify-center text-[#00f0ff] shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="glass-panel p-6 rounded-xl rounded-bl-sm space-y-4">
+<p class="text-on-surface leading-relaxed">
+                                    I've pulled your calendar and workload metrics. Your availability is high from Nov 14–18. I've drafted a potential roadmap for you to review.
+                                </p>
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-white/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary">event_note</span>
+<span class="font-headline font-bold text-sm">Roadmap Draft: Design Phase</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-sm py-2 border-b border-white/5">
+<span class="text-gray-400">Wireframes &amp; Flow</span>
+<span class="text-primary">Nov 14 — Nov 16</span>
+</div>
+<div class="flex items-center justify-between text-sm py-2">
+<span class="text-gray-400">High-Fidelity Assets</span>
+<span class="text-primary">Nov 17 — Nov 20</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10 transition-colors">/approve</button>
+<button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10 transition-colors">/modify</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 pt-0 bg-surface">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Quick Shortcuts -->
+<div class="flex flex-wrap gap-2 overflow-x-auto pb-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-white/5 text-xs text-gray-400 hover:text-primary hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-sm">task</span> /task
+                                </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-white/5 text-xs text-gray-400 hover:text-primary hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-sm">flag</span> /goal
+                                </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-white/5 text-xs text-gray-400 hover:text-primary hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-sm">event</span> /plan
+                                </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-white/5 text-xs text-gray-400 hover:text-primary hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-sm">summarize</span> /summarize
+                                </button>
+</div>
+<!-- Main Input Container -->
+<div class="relative group">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition duration-500"></div>
+<div class="relative flex items-end gap-2 bg-surface-container-high rounded-2xl p-4 shadow-xl border border-white/5">
+<button class="p-2 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-gray-600 resize-none py-2 max-h-48" placeholder="Command your digital ghost..." rows="1"></textarea>
+<button class="p-2 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-fixed-dim flex items-center justify-center text-on-primary-fixed transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<p class="text-center text-[10px] text-gray-600 uppercase tracking-widest font-bold">Aether Intelligence Core v4.2.1-stable</p>
+</div>
+</div>
+</div>
+<!-- Contextual Detail Panel (Asymmetric touch) -->
+<aside class="hidden 2xl:flex flex-col w-96 bg-surface-container-lowest border-l border-white/5 p-8 space-y-10">
+<div>
+<h3 class="font-headline font-extrabold text-2xl tracking-tighter text-on-surface">Active Session</h3>
+<p class="text-xs text-gray-500 mt-2">Correlating data from Workspace &amp; Health</p>
+</div>
+<div class="space-y-6">
+<div class="p-6 rounded-2xl bg-surface-container-low space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold uppercase text-gray-500">Focus Score</span>
+<span class="text-primary text-sm font-bold">88%</span>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase text-gray-500 tracking-widest">Linked Context</h4>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-gray-600 group-hover:text-secondary transition-colors">description</span>
+<span class="text-sm text-gray-400">Design_Specs_v2.pdf</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-gray-600 group-hover:text-secondary transition-colors">link</span>
+<span class="text-sm text-gray-400">Project_Board_Internal</span>
+</div>
+</div>
+</div>
+<!-- Data Visualization placeholder -->
+<div class="relative rounded-2xl overflow-hidden aspect-video group">
+<img alt="Data visualization" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Abstract 3D digital landscape with glowing cyan nodes and flowing data lines on a deep black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFEBAMFLWgDuK3azFk-fckYLH-d7ebsFEhYqea3Ovf7LHCnWY0-CyMazIEtAb-n86OOPjUEoXgESVrjKe2-v2s_Mk1HkDnYgr7wTfZMnOWqPCWCbjFYWVsjcPV3B0hijdiEuB5E1hYy2KXm6Tg7KmC3K02gSPr8tsGji1A3n48Uisxk7z_vZSknAT5P4NPtGRWz4KGAxgtac_qQwdnRtc1uTqfIl0S-aWLRzpCoU7aK5_gzW9nqs3Gi5mL6N0Xe838ojufoX4S2RQw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0d0e13] to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded uppercase font-bold tracking-tighter">Real-time Node Map</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>

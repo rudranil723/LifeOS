@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#1a1b21",
+                    "on-primary": "#00363a",
+                    "on-secondary": "#08218a",
+                    "surface-container-lowest": "#0d0e13",
+                    "inverse-surface": "#e3e1e9",
+                    "surface-bright": "#38393f",
+                    "on-primary-container": "#006970",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dee0ff",
+                    "on-tertiary": "#3c0090",
+                    "secondary-container": "#2c3ea3",
+                    "error-container": "#93000a",
+                    "on-background": "#e3e1e9",
+                    "primary-fixed": "#7df4ff",
+                    "primary": "#dbfcff",
+                    "outline": "#849495",
+                    "surface-tint": "#00dbe9",
+                    "on-tertiary-fixed-variant": "#5700c9",
+                    "surface-container-highest": "#34343a",
+                    "surface-container-high": "#292a2f",
+                    "outline-variant": "#3b494b",
+                    "primary-container": "#00f0ff",
+                    "inverse-primary": "#006970",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#d1bcff",
+                    "on-secondary-container": "#a8b4ff",
+                    "tertiary-container": "#e1d2ff",
+                    "on-surface": "#e3e1e9",
+                    "surface-container": "#1e1f25",
+                    "on-surface-variant": "#b9cacb",
+                    "on-secondary-fixed": "#00105c",
+                    "surface-variant": "#34343a",
+                    "tertiary": "#faf3ff",
+                    "on-secondary-fixed-variant": "#293ca0",
+                    "inverse-on-surface": "#2f3036",
+                    "primary-fixed-dim": "#00dbe9",
+                    "tertiary-fixed": "#e9ddff",
+                    "on-tertiary-container": "#7213ff",
+                    "surface-dim": "#121318",
+                    "secondary": "#bac3ff",
+                    "secondary-fixed-dim": "#bac3ff",
+                    "background": "#121318",
+                    "on-primary-fixed-variant": "#004f54",
+                    "on-primary-fixed": "#002022",
+                    "on-error": "#690005",
+                    "surface": "#121318",
+                    "on-tertiary-fixed": "#23005b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(52, 52, 58, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #dbfcff 0%, #00dbe9 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-[#0d0e13] border-r border-white/5 py-8 px-4 sticky top-0">
+<div class="flex items-center gap-3 mb-12 px-4">
+<div class="w-10 h-10 rounded-xl primary-gradient flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-[#00f0ff] font-headline tracking-tight">The Ghost</h1>
+<p class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Ambient Companion</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-3 text-[#00f0ff] bg-[#00f0ff]/10 rounded-full px-4 py-2 font-semibold font-headline transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full font-headline" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span>Chat</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full font-headline" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Planner</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full font-headline" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Coach</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 px-4 py-2 hover:bg-white/5 transition-all rounded-full font-headline" href="#">
+<span class="material-symbols-outlined">track_changes</span>
+<span>Goals</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4 px-4">
+<button class="w-full py-3 px-4 rounded-2xl primary-gradient text-on-primary-fixed font-bold text-sm font-headline flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Initiative
+                </button>
+<div class="pt-6 border-t border-white/5 space-y-2">
+<a class="flex items-center gap-3 text-gray-500 py-1 hover:text-[#00f0ff] transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-xs font-semibold">Security</span>
+</a>
+<a class="flex items-center gap-3 text-gray-500 py-1 hover:text-[#00f0ff] transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+<span class="text-xs font-semibold">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 min-w-0 overflow-y-auto">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#121318]/80 backdrop-blur-xl flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-8 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-11 pr-4 text-sm focus:ring-1 focus:ring-primary-container text-on-surface-variant" placeholder="Query your life OS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-gray-400 hover:text-[#dbfcff] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-gray-400 hover:text-[#dbfcff] transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Portrait of a creative professional man with a minimalist aesthetic and soft cinematic studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsvnmaqYgzd8Hntcpqv0s2U1Na1kmQmFCe2mLftvTOClnN18DyDCx3VtU4mP-n5PRBBrvwWvTgZ_GazLYY7OVLiT5HZiZswbwZm7k06xP-aYh_BpaXR49EySVkWMbv2ZFD_rAA77krP6LeJnsYeBdrDlf7S-AiUE_ijq8Vz6Y6axlNSLsnIKdJjia-z7VxtBbc4MTB-zk6rP56f_jC_0lFIkcNYhcvNj_ZGP14JoGp9WRLGNj9HO45fgvoEpmC1OMPJl9PLJokJv5C"/>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-10 max-w-7xl mx-auto">
+<!-- Welcome Section -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="space-y-2">
+<h2 class="text-5xl font-extrabold font-headline tracking-tighter text-on-surface">Digital <span class="text-transparent bg-clip-text primary-gradient">Equilibrium</span></h2>
+<p class="text-on-surface-variant font-body max-w-md">Welcome back, Alex. Your biological clock is peaking; now is the optimal window for deep work.</p>
+</div>
+<!-- AI Assistant Insights (Quick Nudge) -->
+<div class="glass-card p-5 rounded-2xl flex items-start gap-4 max-w-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-primary-container uppercase tracking-widest font-headline">AI Insight</h4>
+<p class="text-sm text-on-surface mt-1 leading-relaxed">"Based on your HRV data, I've shifted your focus block 30 mins earlier to match your peak cortisol."</p>
+</div>
+</div>
+</section>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Schedule & Tasks (Large Column) -->
+<div class="lg:col-span-7 space-y-8">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold font-headline tracking-tight">My Daily Schedule</h3>
+<span class="text-xs font-semibold text-primary-container bg-primary-container/10 px-3 py-1 rounded-full uppercase tracking-widest">Oct 24, 2023</span>
+</div>
+<div class="space-y-4 relative">
+<!-- Timeline Line -->
+<div class="absolute left-[19px] top-4 bottom-4 w-px bg-white/5"></div>
+<!-- Timeline Item 1 -->
+<div class="relative pl-12 group">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-surface-container-low border border-white/10 flex items-center justify-center z-10 group-hover:border-primary-container/50 transition-colors">
+<span class="material-symbols-outlined text-sm text-gray-500 group-hover:text-primary-container">lightbulb</span>
+</div>
+<div class="glass-card p-5 rounded-2xl transition-all hover:scale-[1.01] hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-on-surface">Deep Work: UI Architecture</h4>
+<span class="text-xs font-medium text-gray-500">09:00 — 11:30</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Focus on core component structure for Ethereal project. No notifications active.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary-container/10 text-primary-container text-[10px] font-bold rounded">HIGH FOCUS</span>
+<span class="px-2 py-1 bg-surface-container-highest text-gray-400 text-[10px] font-bold rounded">PROJECT ALPHA</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-12 group">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-surface-container-low border border-white/10 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-gray-500">restaurant</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl border border-white/5 opacity-60">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface">Bio-Fuel Break</h4>
+<span class="text-xs font-medium text-gray-500">12:00 — 13:00</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-12 group">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-surface-container-low border border-white/10 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-primary-container" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+</div>
+<div class="glass-card p-5 rounded-2xl border-l-4 border-l-primary-container">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-on-surface">Strategic Review (Sync)</h4>
+<span class="text-xs font-medium text-primary-container">Current — 14:30</span>
+</div>
+<p class="text-sm text-on-surface-variant">Reviewing Q4 growth levers with Ghost AI simulation.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Goals & Stats (Side Column) -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Quick Stats -->
+<div>
+<h3 class="text-xl font-bold font-headline tracking-tight mb-4">Physiological Pulse</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-white/5">
+<p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Focus Score</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-headline text-primary-container">92</span>
+<span class="text-[10px] text-primary-container">/100</span>
+</div>
+<div class="mt-4 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[92%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-white/5">
+<p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Mood Index</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-headline text-secondary-fixed">Flow</span>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1 flex-1 bg-secondary-fixed/40 rounded-full"></div>
+<div class="h-1 flex-1 bg-secondary-fixed/40 rounded-full"></div>
+<div class="h-1 flex-1 bg-secondary-fixed rounded-full"></div>
+<div class="h-1 flex-1 bg-secondary-fixed/20 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Goals -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold font-headline tracking-tight">Active Goals</h3>
+<button class="text-xs font-bold text-primary-container hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Goal Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-2xl relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-4">
+<span class="w-8 h-8 rounded-lg bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-primary-container">fitness_center</span>
+</span>
+<span class="text-xs font-bold text-on-surface-variant">65% Progress</span>
+</div>
+<h4 class="font-bold text-on-surface mb-1">Marathon Readiness</h4>
+<p class="text-xs text-gray-500 mb-6">Target: 42.2km by December</p>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden mb-4">
+<div class="h-full primary-gradient w-[65%]"></div>
+</div>
+<div class="bg-surface-container-highest/30 p-3 rounded-xl">
+<p class="text-[11px] leading-relaxed text-on-surface-variant">
+<span class="text-primary-container font-bold italic">Ghost Suggests:</span> Increase weekend mileage by 12% to stay on track for your sub-4 hour goal.
+                                            </p>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+</div>
+</div>
+<!-- Goal Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-2xl relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-4">
+<span class="w-8 h-8 rounded-lg bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-secondary">menu_book</span>
+</span>
+<span class="text-xs font-bold text-on-surface-variant">4/12 Units</span>
+</div>
+<h4 class="font-bold text-on-surface mb-1">Neurolinguistics Mastery</h4>
+<p class="text-xs text-gray-500 mb-6">Advanced Language Acquisition Course</p>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[33%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Visualization Card (Simplified) -->
+<div class="glass-card p-6 rounded-2xl overflow-hidden">
+<h3 class="text-sm font-bold font-headline uppercase tracking-widest mb-6 text-gray-400">Activity Density</h3>
+<div class="flex items-end justify-between h-32 gap-1">
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[40%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[60%]"></div>
+<div class="w-full bg-primary-container/40 rounded-t-sm h-[30%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[80%]"></div>
+<div class="w-full primary-gradient rounded-t-sm h-[95%]"></div>
+<div class="w-full bg-primary-container/60 rounded-t-sm h-[70%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[50%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[30%]"></div>
+<div class="w-full bg-primary-container/40 rounded-t-sm h-[55%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[40%]"></div>
+<div class="w-full primary-gradient rounded-t-sm h-[85%]"></div>
+<div class="w-full bg-primary-container/20 rounded-t-sm h-[20%]"></div>
+</div>
+<div class="flex justify-between mt-4">
+<span class="text-[10px] font-bold text-gray-600">MON</span>
+<span class="text-[10px] font-bold text-gray-600">WED</span>
+<span class="text-[10px] font-bold text-gray-600">FRI</span>
+<span class="text-[10px] font-bold text-gray-600">SUN</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-[#0d0e13]/90 backdrop-blur-xl border-t border-white/5 flex justify-around items-center py-4 px-6 z-50">
+<a class="flex flex-col items-center gap-1 text-[#00f0ff]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">forum</span>
+</a>
+<div class="w-12 h-12 -mt-10 rounded-full primary-gradient flex items-center justify-center text-on-primary-fixed shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">track_changes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+</a>
+</nav>
+</body></html>
