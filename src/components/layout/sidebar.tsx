@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle2, Target, Plus, LayoutDashboard, Settings } from "lucide-react"
+import { CheckCircle2, Target, Plus, LayoutDashboard, Settings, Calendar } from "lucide-react"
+import Link from "next/link"
 
 export function Sidebar() {
   return (
@@ -24,6 +25,10 @@ export function Sidebar() {
             <LayoutDashboard className="w-4 h-4" />
             Overview
           </button>
+          <Link href="/dashboard/planner" className="flex items-center gap-3 w-full px-2 py-2 text-sm text-white/80 hover:bg-white/5 rounded-md transition-colors hover:text-white">
+            <Calendar className="w-4 h-4" />
+            Smart Planner
+          </Link>
         </div>
 
         <div className="space-y-1">

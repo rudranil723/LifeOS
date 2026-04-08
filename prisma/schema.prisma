@@ -80,6 +80,8 @@ model DailyPlan {
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date], name: "userId_date")
 }
 
 model StudySession {
