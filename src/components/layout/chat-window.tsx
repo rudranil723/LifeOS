@@ -11,6 +11,27 @@ export function ChatWindow() {
   const [loading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // Load chat history on mount
+  useEffect(() => {
+    async function loadHistory() {
+      try {
+        const res = await fetch("/api/chat/history")
+        if (res.ok) {
+          const history = await res.json()
+          const formattedMessages = history.map((msg: any, idx: number) => ({
+            id: msg.id || `history-${idx}`,
+            role: msg.role,
+            content: msg.content,
+          }))
+          setMessages(formattedMessages)
+        }
+      } catch (err) {
+        console.error("Failed to load chat history:", err)
+      }
+    }
+    loadHistory()
+  }, [])
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
