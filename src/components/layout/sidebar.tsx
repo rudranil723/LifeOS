@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle2, Target, Plus, LayoutDashboard, Settings, Calendar } from "lucide-react"
+import { CheckCircle2, Target, Plus, LayoutDashboard, Settings, Calendar, GraduationCap } from "lucide-react"
 import Link from "next/link"
 
 export function Sidebar() {
@@ -28,6 +28,10 @@ export function Sidebar() {
           <Link href="/dashboard/planner" className="flex items-center gap-3 w-full px-2 py-2 text-sm text-white/80 hover:bg-white/5 rounded-md transition-colors hover:text-white">
             <Calendar className="w-4 h-4" />
             Smart Planner
+          </Link>
+          <Link href="/coach" className="flex items-center gap-3 w-full px-2 py-2 text-sm text-white/80 hover:bg-white/5 rounded-md transition-colors hover:text-white">
+            <GraduationCap className="w-4 h-4" />
+            Coach
           </Link>
         </div>
 

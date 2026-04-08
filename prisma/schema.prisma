@@ -12,13 +12,16 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  goals         Goal[]
-  tasks         Task[]
-  memories      Memory[]
-  chatMessages  ChatMessage[]
-  dailyPlans    DailyPlan[]
-  studySessions StudySession[]
-  reminders     Reminder[]
+  goals            Goal[]
+  tasks            Task[]
+  memories         Memory[]
+  chatMessages     ChatMessage[]
+  dailyPlans       DailyPlan[]
+  studySessions    StudySession[]
+  reminders        Reminder[]
+  learningPaths    LearningPath[]
+  masteryLogs      MasteryLog[]
+  coachingInsights CoachingInsight[]
 }
 
 model Goal {
@@ -103,4 +106,40 @@ model Reminder {
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model LearningPath {
+  id               String        @id @default(cuid())
+  userId           String
+  title            String
+  description      String?
+  category         String
+  overallProgress  Int           @default(0) // 0-100
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  masteryLogs      MasteryLog[]
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MasteryLog {
+  id              String       @id @default(cuid())
+  userId          String
+  learningPathId  String
+  concept         String
+  masteryScore    Int          @default(0) // 0-100
+  lastPracticed   DateTime     @default(now())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  learningPath    LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CoachingInsight {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  observation  String
+  learningEdge String
+  drill        String
+  generatedAt  DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
