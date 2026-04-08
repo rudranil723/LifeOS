@@ -1,9 +1,10 @@
 import { auth } from "@clerk/nextjs/server";
 import db from "@/lib/db";
+import { NextRequest } from "next/server";
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -14,7 +15,7 @@ export async function PATCH(
       });
     }
 
-    const { id } = params;
+    const { id } = await params;
     const body = await req.json();
     const { status, title, description, dueDate } = body;
 

@@ -3,6 +3,7 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// @ts-ignore - directUrl is valid for Prisma 7
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
@@ -10,6 +11,7 @@ export default defineConfig({
   },
   datasource: {
     url: process.env.DATABASE_URL,
+    // @ts-ignore - directUrl is valid for Prisma 7
     directUrl: process.env.DIRECT_URL,
   },
 });

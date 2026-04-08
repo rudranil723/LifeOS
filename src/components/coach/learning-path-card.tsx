@@ -118,7 +118,7 @@ export default function LearningPathCard({
         {/* Concepts Pills */}
         {topMastery.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {topMastery.map((log, idx) => (
+            {topMastery.map((log: any, idx: number) => (
               <span
                 key={idx}
                 className="px-2 py-1 text-xs bg-white/10 text-white/70 rounded-full border border-white/10"
