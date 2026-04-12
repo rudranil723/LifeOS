@@ -46,19 +46,19 @@ async function generateDailyPlan(userId: string) {
 
     const goalsContext = goals
       .map(
-        (g) =>
+        (g: { title: string; deadline: Date | null }) =>
           `- ${g.title} (deadline: ${g.deadline ? g.deadline.toLocaleDateString() : "no deadline"})`
       )
       .join("\n");
 
     const tasksContext = tasks
       .map(
-        (t) =>
+        (t: { title: string; dueDate: Date | null }) =>
           `- ${t.title} (due: ${t.dueDate ? t.dueDate.toLocaleDateString() : "no due date"})`
       )
       .join("\n");
 
-    const memoriesContext = memories.map((m) => m.content).join("\n");
+    const memoriesContext = memories.map((m: { content: string }) => m.content).join("\n");
 
     const systemPrompt = `You are LifeOS scheduling engine. Generate a JSON schedule ONLY.
 Respond with ONLY valid JSON, no other text.
@@ -183,9 +183,9 @@ You help the user plan their day, learn new skills, track goals, and stay accoun
 Tone: calm, smart, minimal.
 
 --- CURRENT CONTEXT ---
-Active Goals: ${goals.length ? JSON.stringify(goals.map((g: any) => ({ title: g.title, deadline: g.deadline }))) : "None"}
-Pending Tasks: ${tasks.length ? JSON.stringify(tasks.map((t: any) => ({ title: t.title, dueDate: t.dueDate }))) : "None"}
-User Memories & Preferences: ${memories.length ? JSON.stringify(memories.map((m: any) => m.content)) : "None"}
+Active Goals: ${goals.length ? JSON.stringify(goals.map((g: { title: string; deadline: Date | null }) => ({ title: g.title, deadline: g.deadline }))) : "None"}
+Pending Tasks: ${tasks.length ? JSON.stringify(tasks.map((t: { title: string; dueDate: Date | null }) => ({ title: t.title, dueDate: t.dueDate }))) : "None"}
+User Memories & Preferences: ${memories.length ? JSON.stringify(memories.map((m: { content: string }) => m.content)) : "None"}
 -----------------------
 Be concise and actionable.`;
 
@@ -231,7 +231,7 @@ View your full schedule: /dashboard/planner`;
             model: "openrouter/free",
             messages: [
               { role: "system", content: systemPrompt },
-              ...messages.map((m: any) => ({
+              ...messages.map((m: { role: string; content: string }) => ({
                 role: m.role,
                 content: m.content,
               })),
