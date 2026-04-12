@@ -2,6 +2,7 @@
 
 import db from "../db";
 import { auth } from "@clerk/nextjs/server";
+import { Task, Goal, LearningPath, ChatMessage } from "@prisma/client";
 
 // Types
 interface TaskMetric {
@@ -137,7 +138,7 @@ export async function getUserMetrics(
   const tasksByDate = new Map<string, number>();
   let completedCount = 0;
 
-  allTasks.forEach((task: any) => {
+  allTasks.forEach((task: Task) => {
     if (task.status === "DONE" && task.updatedAt >= start && task.updatedAt <= end) {
       const date = formatDate(task.updatedAt);
       tasksByDate.set(date, (tasksByDate.get(date) || 0) + 1);
@@ -161,7 +162,7 @@ export async function getUserMetrics(
     where: { userId },
   });
 
-  const goalData: GoalData[] = goals.map((g: any) => ({
+  const goalData: GoalData[] = goals.map((g: Goal) => ({
     id: g.id,
     title: g.title,
     progress: 0, // Goals don't have a progress field in schema, default to 0
@@ -177,12 +178,12 @@ export async function getUserMetrics(
   const avgProgress =
     learningPaths.length > 0
       ? Math.round(
-          learningPaths.reduce((sum: number, p: any) => sum + p.overallProgress, 0) /
+          learningPaths.reduce((sum: number, p: LearningPath) => sum + p.overallProgress, 0) /
             learningPaths.length
         )
       : 0;
 
-  const learningPathData: LearningPathData[] = learningPaths.map((p: any) => ({
+  const learningPathData: LearningPathData[] = learningPaths.map((p: LearningPath) => ({
     title: p.title,
     overallProgress: p.overallProgress,
     category: p.category,
@@ -197,7 +198,7 @@ export async function getUserMetrics(
   });
 
   const messagesByDate = new Map<string, number>();
-  messages.forEach((msg: any) => {
+  messages.forEach((msg: ChatMessage) => {
     if (msg.role === "user") {
       const date = formatDate(msg.createdAt);
       messagesByDate.set(date, (messagesByDate.get(date) || 0) + 1);
@@ -330,7 +331,7 @@ export async function getActivityHeatmap(userId: string): Promise<HeatmapData[]>
 
   // Build a map of dates to counts
   const dateCountMap = new Map<string, number>();
-  completedTasks.forEach((task: any) => {
+  completedTasks.forEach((task: Task) => {
     const date = formatDate(task.updatedAt);
     dateCountMap.set(date, (dateCountMap.get(date) || 0) + 1);
   });
@@ -401,7 +402,7 @@ export async function getMoodIndex(userId: string): Promise<MoodIndexResponse> {
 
   const messageContext = messages
     .reverse()
-    .map((m: any) => `${m.role}: ${m.content}`)
+    .map((m: ChatMessage) => `${m.role}: ${m.content}`)
     .join("\n");
 
   const systemPrompt = `You are a mood analysis system. Analyze the following messages and return ONLY valid JSON with no other text.

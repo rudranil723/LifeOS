@@ -3,6 +3,7 @@
 import db from "../db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { LearningPath, MasteryLog, Task, ChatMessage, CoachingInsight } from "@prisma/client";
 
 // Types
 interface VelocityDataPoint {
@@ -17,8 +18,8 @@ interface CoachingInsightData {
 }
 
 interface DashboardData {
-  paths: any[];
-  latestInsight: any | null;
+  paths: (LearningPath & { masteryLogs: MasteryLog[] })[];
+  latestInsight: CoachingInsight | null;
   velocityData: VelocityDataPoint[];
 }
 
@@ -58,7 +59,7 @@ async function callOpenRouter(
 
 // Helper: Generate velocity data
 function generateVelocityData(
-  paths: any[],
+  paths: (LearningPath & { masteryLogs: MasteryLog[] })[],
   pastLogs: Map<string, number[]>
 ): VelocityDataPoint[] {
   const weeks = Array.from({ length: 6 }, (_, i) => `Week ${i + 1}`);
@@ -66,7 +67,7 @@ function generateVelocityData(
     week,
   }));
 
-  paths.forEach((path: any) => {
+  paths.forEach((path: LearningPath & { masteryLogs: MasteryLog[] }) => {
     const pathLogs = pastLogs.get(path.id);
     if (pathLogs) {
       pathLogs.forEach((score: number, idx: number) => {
@@ -113,8 +114,8 @@ export async function getLearningDashboardData(
 
   // Build velocity data (using mastery logs)
   const pastLogs = new Map<string, number[]>();
-  paths.forEach((path: any) => {
-    const scores = path.masteryLogs.slice(0, 6).map((log: any) => log.masteryScore);
+  paths.forEach((path: LearningPath & { masteryLogs: MasteryLog[] }) => {
+    const scores = path.masteryLogs.slice(0, 6).map((log: MasteryLog) => log.masteryScore);
     pastLogs.set(path.id, scores);
   });
 
@@ -155,17 +156,17 @@ export async function analyzeLearningState(userId: string): Promise<any> {
 
   // Build context from data
   const chatContext = chatMessages
-    .map((m: any) => `${m.role}: ${m.content}`)
+    .map((m: ChatMessage) => `${m.role}: ${m.content}`)
     .join("\n");
 
   const tasksContext = completedTasks
-    .map((t: any) => `- ${t.title}`)
+    .map((t: Task) => `- ${t.title}`)
     .join("\n");
 
   const pathsContext = learningPaths
     .map(
-      (p: any) =>
-        `${p.title} (${p.category}): ${p.masteryLogs.map((m: any) => m.concept).join(", ")}`
+      (p: LearningPath & { masteryLogs: MasteryLog[] }) =>
+        `${p.title} (${p.category}): ${p.masteryLogs.map((m: MasteryLog) => m.concept).join(", ")}`
     )
     .join("\n");
 
@@ -232,7 +233,7 @@ Generate coaching insights as JSON.`;
 export async function startLearningSession(
   userId: string,
   learningPathId: string
-): Promise<any> {
+): Promise<LearningPath & { masteryLogs: MasteryLog[] }> {
   // Update learning path timestamp
   const updatedPath = await db.learningPath.update({
     where: { id: learningPathId, userId },
@@ -250,7 +251,7 @@ export async function startLearningSession(
   });
 
   await Promise.all(
-    masteryLogs.map((log: any) =>
+    masteryLogs.map((log: MasteryLog) =>
       db.masteryLog.update({
         where: { id: log.id },
         data: {
@@ -270,7 +271,7 @@ export async function startLearningSession(
   const avgScore =
     updatedLogs.length > 0
       ? Math.round(
-          updatedLogs.reduce((sum: number, log: any) => sum + log.masteryScore, 0) /
+          updatedLogs.reduce((sum: number, log: MasteryLog) => sum + log.masteryScore, 0) /
             updatedLogs.length
         )
       : 0;
@@ -297,7 +298,7 @@ export async function createLearningPath(
   title: string,
   category: string,
   description?: string
-): Promise<any> {
+): Promise<(LearningPath & { masteryLogs: MasteryLog[] }) | null> {
   const systemPrompt = `You are an educational curriculum designer. 
 Generate 4-6 core concepts or drills for a learning path.
 Respond with ONLY a valid JSON array of strings, no other text.
