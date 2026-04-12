@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { CheckCircle2, Target, Plus, LayoutDashboard, Settings, Calendar, GraduationCap, BarChart2, Loader2 } from "lucide-react"
+import { CheckCircle2, Target, Plus, LayoutDashboard, Settings, Calendar, GraduationCap, BarChart2, Loader2, Menu, X } from "lucide-react"
 import Link from "next/link"
 
 interface Goal {
@@ -40,6 +40,7 @@ export function Sidebar() {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false)
   const [newGoalTitle, setNewGoalTitle] = useState("")
   const [creatingGoal, setCreatingGoal] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     fetchDashboardData()
@@ -108,17 +109,45 @@ export function Sidebar() {
     }
   }
   return (
-    <motion.aside 
-      initial={{ x: -50, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      className="w-64 border-r border-white/5 bg-black/50 p-4 flex flex-col h-full glass-panel"
-    >
-      <div className="flex items-center gap-2 px-2 pb-6">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
-          <Target className="w-4 h-4 text-white" />
+    <>
+      {/* Hamburger button - visible only on mobile */}
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed top-4 left-4 z-50 lg:hidden bg-black/80 p-2 rounded-md text-white hover:bg-black/90 transition-colors"
+      >
+        <Menu size={20} />
+      </button>
+
+      {/* Backdrop - visible only on mobile when sidebar is open */}
+      {open && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <motion.aside 
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        className={`w-64 border-r border-white/5 bg-black/50 p-4 flex flex-col h-full glass-panel fixed lg:relative inset-y-0 left-0 z-50 transition-transform duration-300 lg:translate-x-0 ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Close button - visible only on mobile */}
+        <button 
+          onClick={() => setOpen(false)} 
+          className="lg:hidden absolute top-4 right-4 text-white hover:text-white/70 transition-colors"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="flex items-center gap-2 px-2 pb-6">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
+            <Target className="w-4 h-4 text-white" />
+          </div>
+          <span className="font-semibold text-lg tracking-tight">LifeOS</span>
         </div>
-        <span className="font-semibold text-lg tracking-tight">LifeOS</span>
-      </div>
 
       <div className="flex-1 overflow-y-auto space-y-6">
         <div className="space-y-1">
@@ -258,6 +287,7 @@ export function Sidebar() {
           Settings
         </button>
       </div>
-    </motion.aside>
+      </motion.aside>
+    </>
   )
 }

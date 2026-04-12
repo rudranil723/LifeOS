@@ -19,7 +19,7 @@ export default async function CoachPage() {
   const dashboardData = await getLearningDashboardData(userId);
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-black/90 overflow-hidden">
+    <div className="flex-1 flex flex-col h-full bg-black/90 overflow-hidden p-4 md:p-8">
       <CoachDashboard initialData={dashboardData} userId={userId} />
     </div>
   );

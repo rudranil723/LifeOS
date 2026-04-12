@@ -58,7 +58,7 @@ export function DashboardPanel() {
     </div>
   )
   return (
-    <div className="w-80 bg-black/60 p-6 flex flex-col h-full border-l border-white/5 overflow-y-auto">
+    <div className="w-80 bg-black/60 p-6 hidden lg:flex flex-col h-full border-l border-white/5 overflow-y-auto">
       <div className="mb-8">
         <h2 className="text-lg font-semibold tracking-tight text-white mb-1">Today's Insights</h2>
         <p className="text-xs text-white/40">Real-time productivity analytics</p>

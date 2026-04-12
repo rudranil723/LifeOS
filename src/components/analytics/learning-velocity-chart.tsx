@@ -61,17 +61,16 @@ export function LearningVelocityChart({ paths }: LearningVelocityChartProps) {
             />
             <Legend wrapperStyle={{ fontSize: '12px', color: 'rgb(156, 163, 175)' }} />
             {paths.slice(0, 3).map((path, i) => (
-              <React.Fragment key={path.id}>
-                <Line
-                  type="monotone"
-                  dataKey={path.title.substring(0, 10)}
-                  stroke={colors[i]}
-                  strokeWidth={2}
-                  dot={{ radius: 4, fill: colors[i] }}
-                  activeDot={{ r: 6 }}
-                  isAnimationActive
-                />
-              </React.Fragment>
+              <Line
+                key={path.id}
+                type="monotone"
+                dataKey={path.title.substring(0, 10)}
+                stroke={colors[i]}
+                strokeWidth={2}
+                dot={{ radius: 4, fill: colors[i] }}
+                activeDot={{ r: 6 }}
+                isAnimationActive
+              />
             ))}
           </LineChart>
         </ResponsiveContainer>

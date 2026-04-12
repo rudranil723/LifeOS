@@ -23,7 +23,7 @@ export default async function CoachLayout({
     return (
       <main className="flex h-screen w-full bg-black text-white overflow-hidden font-sans">
         <Sidebar />
-        <div className="flex-1 flex flex-col h-full">
+        <div className="flex-1 min-w-0 overflow-hidden">
           {children}
         </div>
         <DashboardPanel />
