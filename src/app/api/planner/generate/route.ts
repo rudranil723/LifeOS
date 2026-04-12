@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       )
       .join("\n");
 
-    const memoriesContext = memories.map((m) => m.content).join("\n");
+    const memoriesContext = memories.map((m: any) => m.content).join("\n");
 
     const systemPrompt = `You are LifeOS, an AI life operating system. Your task is to generate a structured daily schedule for the user based on their goals, tasks, and preferences.
 

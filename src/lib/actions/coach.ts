@@ -62,14 +62,14 @@ function generateVelocityData(
   pastLogs: Map<string, number[]>
 ): VelocityDataPoint[] {
   const weeks = Array.from({ length: 6 }, (_, i) => `Week ${i + 1}`);
-  const result: VelocityDataPoint[] = weeks.map((week) => ({
+  const result: VelocityDataPoint[] = weeks.map((week: string) => ({
     week,
   }));
 
-  paths.forEach((path) => {
+  paths.forEach((path: any) => {
     const pathLogs = pastLogs.get(path.id);
     if (pathLogs) {
-      pathLogs.forEach((score, idx) => {
+      pathLogs.forEach((score: number, idx: number) => {
         result[idx][path.title] = score;
       });
     } else {
@@ -113,8 +113,8 @@ export async function getLearningDashboardData(
 
   // Build velocity data (using mastery logs)
   const pastLogs = new Map<string, number[]>();
-  paths.forEach((path) => {
-    const scores = path.masteryLogs.slice(0, 6).map((log) => log.masteryScore);
+  paths.forEach((path: any) => {
+    const scores = path.masteryLogs.slice(0, 6).map((log: any) => log.masteryScore);
     pastLogs.set(path.id, scores);
   });
 
@@ -155,17 +155,17 @@ export async function analyzeLearningState(userId: string): Promise<any> {
 
   // Build context from data
   const chatContext = chatMessages
-    .map((m) => `${m.role}: ${m.content}`)
+    .map((m: any) => `${m.role}: ${m.content}`)
     .join("\n");
 
   const tasksContext = completedTasks
-    .map((t) => `- ${t.title}`)
+    .map((t: any) => `- ${t.title}`)
     .join("\n");
 
   const pathsContext = learningPaths
     .map(
-      (p) =>
-        `${p.title} (${p.category}): ${p.masteryLogs.map((m) => m.concept).join(", ")}`
+      (p: any) =>
+        `${p.title} (${p.category}): ${p.masteryLogs.map((m: any) => m.concept).join(", ")}`
     )
     .join("\n");
 
@@ -250,7 +250,7 @@ export async function startLearningSession(
   });
 
   await Promise.all(
-    masteryLogs.map((log) =>
+    masteryLogs.map((log: any) =>
       db.masteryLog.update({
         where: { id: log.id },
         data: {
@@ -270,7 +270,7 @@ export async function startLearningSession(
   const avgScore =
     updatedLogs.length > 0
       ? Math.round(
-          updatedLogs.reduce((sum, log) => sum + log.masteryScore, 0) /
+          updatedLogs.reduce((sum: number, log: any) => sum + log.masteryScore, 0) /
             updatedLogs.length
         )
       : 0;
@@ -341,7 +341,7 @@ Return ONLY a JSON array of concept names.`;
 
   // Create mastery logs for each concept
   await Promise.all(
-    concepts.map((concept) =>
+    concepts.map((concept: string) =>
       db.masteryLog.create({
         data: {
           userId,

@@ -44,7 +44,7 @@ export async function GET() {
 
     // Get task completion for today
     const todaysCompleted = todaysTasks.filter(
-      (t) => t.status === "DONE"
+      (t: { id: string; title: string; status: string }) => t.status === "DONE"
     ).length;
     const todaysTotal = todaysTasks.length;
     const todaysCompletionPercentage =
@@ -71,7 +71,7 @@ export async function GET() {
 
     // Count unique learning paths practiced this week (each = 1 hour)
     const uniquePathsThisWeek = new Set(
-      masteryLogs.map((log) => log.learningPathId)
+      masteryLogs.map((log: { learningPathId: string }) => log.learningPathId)
     ).size;
     const studyHours = uniquePathsThisWeek;
 

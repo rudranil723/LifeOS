@@ -137,7 +137,7 @@ export async function getUserMetrics(
   const tasksByDate = new Map<string, number>();
   let completedCount = 0;
 
-  allTasks.forEach((task) => {
+  allTasks.forEach((task: any) => {
     if (task.status === "DONE" && task.updatedAt >= start && task.updatedAt <= end) {
       const date = formatDate(task.updatedAt);
       tasksByDate.set(date, (tasksByDate.get(date) || 0) + 1);
@@ -161,7 +161,7 @@ export async function getUserMetrics(
     where: { userId },
   });
 
-  const goalData: GoalData[] = goals.map((g) => ({
+  const goalData: GoalData[] = goals.map((g: any) => ({
     id: g.id,
     title: g.title,
     progress: 0, // Goals don't have a progress field in schema, default to 0
@@ -177,12 +177,12 @@ export async function getUserMetrics(
   const avgProgress =
     learningPaths.length > 0
       ? Math.round(
-          learningPaths.reduce((sum, p) => sum + p.overallProgress, 0) /
+          learningPaths.reduce((sum: number, p: any) => sum + p.overallProgress, 0) /
             learningPaths.length
         )
       : 0;
 
-  const learningPathData: LearningPathData[] = learningPaths.map((p) => ({
+  const learningPathData: LearningPathData[] = learningPaths.map((p: any) => ({
     title: p.title,
     overallProgress: p.overallProgress,
     category: p.category,
@@ -197,7 +197,7 @@ export async function getUserMetrics(
   });
 
   const messagesByDate = new Map<string, number>();
-  messages.forEach((msg) => {
+  messages.forEach((msg: any) => {
     if (msg.role === "user") {
       const date = formatDate(msg.createdAt);
       messagesByDate.set(date, (messagesByDate.get(date) || 0) + 1);
@@ -330,7 +330,7 @@ export async function getActivityHeatmap(userId: string): Promise<HeatmapData[]>
 
   // Build a map of dates to counts
   const dateCountMap = new Map<string, number>();
-  completedTasks.forEach((task) => {
+  completedTasks.forEach((task: any) => {
     const date = formatDate(task.updatedAt);
     dateCountMap.set(date, (dateCountMap.get(date) || 0) + 1);
   });
@@ -401,7 +401,7 @@ export async function getMoodIndex(userId: string): Promise<MoodIndexResponse> {
 
   const messageContext = messages
     .reverse()
-    .map((m) => `${m.role}: ${m.content}`)
+    .map((m: any) => `${m.role}: ${m.content}`)
     .join("\n");
 
   const systemPrompt = `You are a mood analysis system. Analyze the following messages and return ONLY valid JSON with no other text.
