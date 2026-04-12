@@ -1,7 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import db from "@/lib/db";
+import { NextRequest } from "next/server";
 
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   try {
     const { userId } = await auth();
     if (!userId) {

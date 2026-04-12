@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import db from "@/lib/db";
 import { NextRequest } from "next/server";
+import type { Prisma } from "@prisma/client";
 
 export async function PATCH(
   req: NextRequest,
@@ -32,7 +33,7 @@ export async function PATCH(
     }
 
     // Update only provided fields
-    const updateData: any = {};
+    const updateData: Prisma.TaskUpdateInput = {};
     if (status !== undefined) updateData.status = status;
     if (title !== undefined) updateData.title = title;
     if (description !== undefined) updateData.description = description;

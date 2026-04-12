@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import db from "@/lib/db";
+import type { Goal, Task, Memory } from "@prisma/client";
 
 export const maxDuration = 30;
 
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
         orderBy: { dueDate: "asc" },
       }),
       db.memory.findMany({ where: { userId } }),
-    ]);
+    ]) as [Goal[], Task[], Memory[]];
 
     // Build a comprehensive prompt for schedule generation
     const today = new Date();
@@ -51,19 +52,19 @@ export async function POST(req: Request) {
 
     const goalsContext = goals
       .map(
-        (g) =>
+        (g: Goal) =>
           `- ${g.title} (deadline: ${g.deadline ? g.deadline.toLocaleDateString() : "no deadline"}, priority: high)`
       )
       .join("\n");
 
     const tasksContext = tasks
       .map(
-        (t) =>
+        (t: Task) =>
           `- ${t.title} (due: ${t.dueDate ? t.dueDate.toLocaleDateString() : "no due date"}, status: ${t.status})`
       )
       .join("\n");
 
-    const memoriesContext = memories.map((m: any) => m.content).join("\n");
+    const memoriesContext = memories.map((m: Memory) => m.content).join("\n");
 
     const systemPrompt = `You are LifeOS, an AI life operating system. Your task is to generate a structured daily schedule for the user based on their goals, tasks, and preferences.
 
