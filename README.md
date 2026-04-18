@@ -1,250 +1,439 @@
-# LifeOS
+<div align="center">
 
-LifeOS is an AI-powered personal operating system built with Next.js, Clerk, Prisma, PostgreSQL, and a chat-first interface.
+<h1>🧠 LifeOS — AI-Powered Life Operating System</h1>
 
-The current version combines:
-- a **three-panel desktop layout**
-- **authentication with Clerk**
-- a **PostgreSQL + Prisma data model** for goals, tasks, memories, reminders, chat history, and study sessions
-- an **AI chat endpoint** that uses user context from the database
-- a dark, portfolio-style UI with Tailwind and Framer Motion
+<p><strong>Your personal intelligent operating system for goals, tasks, learning, and daily planning.</strong></p>
 
-## Current state
+<p>
+  <a href="https://life-os-g5ap.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀 Live Demo-life--os--g5ap.vercel.app-6366f1?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  </a>
+  &nbsp;
+  <img src="https://img.shields.io/badge/Next.js-16.2.2-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react" alt="React" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
+</p>
 
-This repository is no longer just a starter template. At the moment, the app includes:
+<p>
+  <img src="https://img.shields.io/badge/Deployed on-Vercel-black?style=flat-square&logo=vercel" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Database-Supabase PostgreSQL-3ECF8E?style=flat-square&logo=supabase" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Auth-Clerk-6C47FF?style=flat-square&logo=clerk" alt="Clerk" />
+  <img src="https://img.shields.io/badge/AI-OpenRouter-FF6B35?style=flat-square" alt="OpenRouter" />
+</p>
 
-- a homepage composed of **Sidebar + Chat Window + Dashboard Panel**
-- Clerk-based sign-in protection on the main page
-- a working `/api/chat` route
-- Prisma models for the core LifeOS entities
-- chat persistence for user and assistant messages
-- contextual prompting using:
-  - active goals
-  - unfinished tasks
-  - stored memories
+</div>
 
-The AI chat route currently calls **OpenRouter** directly and sends a system prompt enriched with database context.
+---
 
-## Implemented features
+## 🌐 Live Project
 
-### 1. Authentication
-- Clerk is integrated in the root layout
-- unauthenticated users are shown a sign-in screen
-- authenticated users are allowed into the main LifeOS interface
+> **[https://life-os-g5ap.vercel.app/](https://life-os-g5ap.vercel.app/)**
 
-### 2. Main UI
-The current UI is organized into three sections:
+LifeOS is live and fully deployed. Sign up with your email or a social account to get started instantly — no setup required.
 
-#### Sidebar
-- LifeOS branding
-- overview navigation
-- placeholder active goals
-- placeholder daily tasks
-- settings button
+---
 
-#### Chat Window
-- user and assistant message bubbles
-- loading state
-- auto-scroll to latest message
-- input box with send action
-- error rendering inside the assistant bubble when the API call fails
+## 📖 Table of Contents
 
-#### Dashboard Panel
-- mock insight cards
-- productivity/focus card
-- streak card
-- study-hours mini chart
-- task completion progress bar
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Database Schema](#-database-schema)
+- [AI Capabilities](#-ai-capabilities)
+- [Pages & Routes](#-pages--routes)
+- [Getting Started (Local Development)](#-getting-started-local-development)
+- [Environment Variables](#-environment-variables)
+- [Project Structure](#-project-structure)
+- [Deployment](#-deployment)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
 
-## AI chat flow
+---
 
-When a user sends a message:
+## 🧬 Overview
 
-1. the frontend sends the current message list to `/api/chat`
-2. the API route checks authentication
-3. the route ensures the Clerk user exists in the local database
-4. the route fetches:
-   - in-progress goals
-   - incomplete tasks
-   - stored memories
-5. the route builds a focused system prompt using that context
-6. the route sends the conversation to OpenRouter
-7. the assistant reply is saved in the database
-8. the plain-text response is returned to the chat UI
+**LifeOS** is a full-stack, AI-driven personal productivity system designed to act as your intelligent life operating system. It combines goal management, task tracking, daily AI scheduling, a personal learning coach, and deep analytics — all in one unified, context-aware interface.
 
-## Database models
+Unlike traditional productivity apps, LifeOS has persistent memory of your goals, tasks, and preferences. Its embedded AI understands your context and can plan your day, coach your learning, analyze your mood engagement, and surface actionable insights — all through a conversational interface.
 
-The Prisma schema currently includes:
+---
 
-- `User`
-- `Goal`
-- `Task`
-- `Memory`
-- `ChatMessage`
-- `DailyPlan`
-- `StudySession`
-- `Reminder`
+## ✨ Key Features
 
-This gives the project a solid base for future features like:
-- AI smart planning
-- habit and study tracking
-- memory-aware responses
-- reminders and proactive nudges
-- analytics dashboards
+### 🤖 AI Chat Assistant
+- Context-aware conversational AI that knows your active goals, pending tasks, and personal preferences
+- Persistent memory across sessions — the AI remembers your patterns and adapts
+- Natural language daily planning: simply say *"plan my day"* to generate a structured time-blocked schedule
+- Powered by OpenRouter's free-tier LLMs with smart prompt engineering
 
-## Tech stack
+### 📅 AI Daily Planner
+- Automatically generates a time-blocked daily schedule based on your goals and deadlines
+- Schedules are persisted to the database and accessible from `/dashboard/planner`
+- Handles existing plan updates (upsert behavior) — always shows today's most current plan
 
-- **Framework:** Next.js 16
-- **Language:** TypeScript
-- **UI:** React 19, Tailwind CSS 4, Framer Motion
-- **Icons:** Lucide React
-- **Auth:** Clerk
-- **Database:** PostgreSQL
-- **ORM:** Prisma
-- **AI:** OpenRouter API
-- **Package manager:** npm
+### 🎯 Goal Tracking
+- Create and manage multiple life goals with optional deadlines
+- Goals are linked to tasks for granular progress tracking
+- Status management: `IN_PROGRESS`, `COMPLETED`, `ARCHIVED`
 
-## Project structure
+### ✅ Task Management
+- Kanban-style task workflow: `TODO → DOING → DONE`
+- Tasks can be linked to parent goals for structure and accountability
+- Due date support with deadline-aware AI scheduling integration
 
-```text
-LifeOS/
-├── prisma/
-│   └── schema.prisma
-├── public/
-├── short_plan/
-├── src/
-│   ├── app/
-│   │   ├── api/chat/route.ts
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   └── layout/
-│   │       ├── chat-window.tsx
-│   │       ├── dashboard-panel.tsx
-│   │       └── sidebar.tsx
-│   └── lib/
-│       └── db.ts
-├── package.json
-└── README.md
+### 📚 AI Learning Coach
+- Create custom learning paths across any domain (tech, science, arts, etc.)
+- AI auto-generates 4–6 core concepts and mastery drills for each path via OpenRouter
+- Mastery log tracking with individual concept scores (0–100)
+- Session-based progress: each practice session increments mastery scores
+- Coaching insights: AI analyzes chat history, completed tasks, and learning path data to generate personalized observation + learning edge + drill recommendations
+
+### 📊 Analytics Dashboard
+- **Focus Score** (0–100): A weighted composite of task completion rate (40%), learning path progress (30%), AI engagement (15%), and streak bonus (15%)
+- **Task Completion Rate**: Total vs. completed tasks with day-by-day breakdown
+- **GitHub-style Activity Heatmap**: 365-day task completion history with color-coded intensity levels
+- **Mood/Engagement Index**: AI-analyzed sentiment from recent chat messages, scored and labeled (stressed / neutral / focused)
+- **Learning Path Velocity**: Week-over-week mastery score trends per learning path
+
+### 🔐 Authentication
+- Clerk-powered authentication with email, Google, and other social providers
+- Automatic user provisioning in the database on first sign-in
+- All data is scoped per user with Clerk User ID mapping
+
+### 🧠 Persistent Memory System
+- User memories stored in the `Memory` model (preferences, behaviors, facts, goals)
+- Injected into every AI chat prompt for personalized, context-aware responses
+- Categories: `PREFERENCE`, `FACT`, `BEHAVIOR`, `GOAL`
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Framework** | [Next.js 16](https://nextjs.org/) (App Router) |
+| **Language** | TypeScript 5 |
+| **UI** | React 19, Tailwind CSS 4, Framer Motion |
+| **Components** | Lucide React, Recharts, shadcn/ui (components.json) |
+| **Authentication** | [Clerk](https://clerk.com/) |
+| **Database ORM** | [Prisma 7](https://www.prisma.io/) with `@prisma/adapter-pg` |
+| **Database** | PostgreSQL via [Supabase](https://supabase.com/) |
+| **AI / LLMs** | [OpenRouter API](https://openrouter.ai/) (free-tier models) |
+| **AI SDK** | Vercel AI SDK (`ai`, `@ai-sdk/google`, `@ai-sdk/anthropic`, `@ai-sdk/openai`) |
+| **Deployment** | [Vercel](https://vercel.com/) |
+| **Fonts** | Geist Sans, Geist Mono (next/font/google) |
+
+---
+
+## 🏗 Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        VERCEL (Edge)                        │
+│                                                             │
+│  ┌──────────────┐   ┌──────────────┐   ┌────────────────┐  │
+│  │  Next.js App │   │  API Routes  │   │ Server Actions │  │
+│  │  (RSC + CSR) │   │  /api/chat   │   │ analytics.ts   │  │
+│  │              │   │  /api/goals  │   │ coach.ts       │  │
+│  │  Dashboard   │   │  /api/tasks  │   │ goals.ts       │  │
+│  │  Analytics   │   │  /api/planner│   │ tasks.ts       │  │
+│  │  Coach       │   │              │   │                │  │
+│  └──────┬───────┘   └──────┬───────┘   └───────┬────────┘  │
+│         │                  │                    │           │
+└─────────┼──────────────────┼────────────────────┼───────────┘
+          │                  │                    │
+          ▼                  ▼                    ▼
+   ┌─────────────┐   ┌──────────────┐   ┌──────────────────┐
+   │    Clerk    │   │  OpenRouter  │   │   Supabase PG    │
+   │    Auth     │   │  AI/LLMs     │   │   (Prisma 7)     │
+   │             │   │  (free tier) │   │                  │
+   │ User Mgmt   │   │ Chat, Plans, │   │ Users, Goals,    │
+   │ JWT Tokens  │   │ Coaching,    │   │ Tasks, Memories, │
+   │             │   │ Mood Index   │   │ LearningPaths,   │
+   └─────────────┘   └──────────────┘   │ CoachingInsights │
+                                        └──────────────────┘
 ```
 
-## Environment variables
+### Data Flow
+1. User authenticates via **Clerk** → JWT propagated to all requests
+2. **Server Actions** (Next.js) handle CRUD operations via **Prisma** → **Supabase PostgreSQL**
+3. AI features call **OpenRouter API** with user context (goals, tasks, memories) injected into system prompts
+4. Analytics are computed server-side by aggregating Prisma query results with weighted scoring algorithms
+5. All user data is cascade-deleted on user removal for clean data hygiene
 
-Create a `.env` or `.env.local` file and configure the following values:
+---
 
-```env
-DATABASE_URL=
-OPENROUTER_API_KEY=
+## 🗄 Database Schema
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
+LifeOS uses a PostgreSQL database managed by Prisma 7 with the following models:
+
+```prisma
+User            # Maps to Clerk User ID; root of all data
+├── Goal        # Life goals with deadlines and status
+│   └── Task    # Tasks linked to goals (optional)
+├── Task        # Standalone tasks (can exist without a goal)
+├── Memory      # Persistent AI memory (preferences, facts, behaviors)
+├── ChatMessage # Full conversation history per user
+├── DailyPlan   # AI-generated daily schedules (upserted per day)
+├── StudySession # Raw study session logs (topic + duration)
+├── Reminder    # Scheduled reminders with fire-at timestamps
+├── LearningPath # Named learning tracks per user
+│   └── MasteryLog # Per-concept mastery scores (0-100)
+└── CoachingInsight # Latest AI coaching analysis (1 per user, upserted)
 ```
 
-Depending on your Clerk setup, you may also need additional Clerk variables.
+All models cascade-delete on user removal. The `DailyPlan` model has a unique constraint on `(userId, date)` ensuring one plan per day.
 
-## Getting started
+---
 
-### 1. Clone the repo
+## 🤖 AI Capabilities
+
+### Chat System (`/api/chat`)
+The chat route dynamically builds a system prompt from:
+- User's active `IN_PROGRESS` goals
+- Pending tasks (not `DONE`)
+- All user `Memory` records (preferences, facts)
+
+It intelligently detects planning requests using keyword matching and routes them to the `generateDailyPlan` function instead of a standard chat response.
+
+### Daily Plan Generation
+Triggered by phrases like:
+- *"plan my day"*, *"generate my schedule"*, *"what should I do"*, *"organize my day"*
+
+The planner fetches goals + tasks + memories, builds a structured prompt, calls OpenRouter, parses the JSON block schedule response, and upserts it to `DailyPlan` for the current day.
+
+### Learning Coach (`/coach`)
+- **`analyzeLearningState`**: Sends last 20 chat messages + completed tasks + learning paths to the AI, receives structured `{ observation, learningEdge, drill }` JSON, and persists it as a `CoachingInsight`
+- **`createLearningPath`**: Sends title + category to OpenRouter, which returns a JSON array of 4–6 core concepts; mastery logs at score 0 are seeded automatically
+- **`startLearningSession`**: Increments all mastery scores by +5, recalculates `overallProgress` as average of all concept scores
+
+### Analytics Engine (`/analytics`)
+- **Focus Score**: Weighted formula across 4 dimensions
+- **Activity Heatmap**: 365-day lookback with 5-level intensity (0–4)
+- **Mood Index**: AI sentiment analysis of last 20 chat messages, cached against `CoachingInsight` timestamp (6-hour TTL)
+
+---
+
+## 📄 Pages & Routes
+
+| Route | Description |
+|---|---|
+| `/` | Landing / home page with sign-in prompt |
+| `/dashboard` | Main dashboard with AI chat, goals overview, and sidebar navigation |
+| `/dashboard/planner` | AI-generated daily time-block schedule viewer |
+| `/analytics` | Full analytics dashboard (focus score, heatmap, mood index, metrics) |
+| `/coach` | AI Learning Coach — paths, mastery logs, insights, velocity chart |
+| `/api/chat` | `POST` — AI chat endpoint with planning detection |
+| `/api/goals` | Goals CRUD API |
+| `/api/tasks` | Tasks CRUD API |
+| `/api/planner` | Planner generation API |
+| `/api/analytics` | Analytics data API |
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+### Prerequisites
+- Node.js 18+ and npm
+- A [Clerk](https://clerk.com/) account (free)
+- A [Supabase](https://supabase.com/) project with a PostgreSQL database (free tier)
+- An [OpenRouter](https://openrouter.ai/) API key (free tier available)
+
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/rudranil723/LifeOS.git
 cd LifeOS
 ```
 
-### 2. Install dependencies
+### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 3. Set environment variables
-Create `.env.local` and add your keys.
+> **Note:** `prisma generate` runs automatically via the `postinstall` script.
 
-### 4. Generate Prisma client
+### 3. Set Up Environment Variables
+
+Copy the example file and fill in your credentials:
+
 ```bash
-npx prisma generate
+cp .env.example .env.local
 ```
 
-### 5. Push the schema to your database
+See the [Environment Variables](#-environment-variables) section for the full list.
+
+### 4. Run Database Migrations
+
 ```bash
-npx prisma db push
+npx prisma migrate deploy
 ```
 
-### 6. Run the app
+Or for local development (creates migration files):
+
+```bash
+npx prisma migrate dev
+```
+
+### 5. Start the Development Server
+
 ```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Available scripts
+---
 
-```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the project root with the following variables:
+
+```env
+# ─── Clerk Authentication ───────────────────────────────────
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# Clerk redirect URLs
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+# ─── Database (Supabase PostgreSQL) ─────────────────────────
+# Use the "Transaction" connection string from Supabase dashboard
+DATABASE_URL=postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true
+
+# ─── AI (OpenRouter) ────────────────────────────────────────
+OPENROUTER_API_KEY=sk-or-v1-...
 ```
 
-## What is working now
+> **Important:** Use the **Transaction pooler** connection string from Supabase (port 6543) with `?pgbouncer=true` for compatibility with serverless Vercel functions.
 
-- app boots successfully
-- Clerk auth is integrated
-- database client is configured
-- chat requests are processed through `/api/chat`
-- AI replies are returned in the UI
-- user and assistant messages are stored
-- goals, tasks, and memories are injected into the prompt context
+---
 
-## What is still in progress
+## 📁 Project Structure
 
-This repository is in an early but functional stage. A few parts are still scaffolded or partially implemented:
+```
+life-os/
+├── prisma/
+│   ├── schema.prisma          # Database schema (11 models)
+│   └── migrations/            # SQL migration history
+│
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx         # Root layout (ClerkProvider, fonts)
+│   │   ├── page.tsx           # Landing page
+│   │   ├── globals.css        # Global styles
+│   │   ├── dashboard/
+│   │   │   ├── layout.tsx     # Dashboard layout (sidebar + panel)
+│   │   │   ├── layout-client.tsx
+│   │   │   └── planner/       # Daily planner page
+│   │   ├── analytics/         # Analytics dashboard page
+│   │   ├── coach/             # AI Learning Coach page
+│   │   └── api/
+│   │       ├── chat/          # AI chat endpoint
+│   │       ├── goals/         # Goals CRUD
+│   │       ├── tasks/         # Tasks CRUD
+│   │       ├── planner/       # Plan generation
+│   │       └── analytics/     # Analytics data
+│   │
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── sidebar.tsx        # Main navigation sidebar
+│   │   │   ├── dashboard-panel.tsx # Goals/tasks panel
+│   │   │   └── chat-window.tsx    # AI chat interface
+│   │   ├── analytics/             # Analytics chart components
+│   │   ├── coach/                 # Coach UI components
+│   │   ├── ui/                    # Shared base UI components
+│   │   └── home-content.tsx       # Landing page content
+│   │
+│   ├── lib/
+│   │   ├── db.ts                  # Prisma client singleton
+│   │   ├── utils.ts               # Shared utilities
+│   │   ├── sidebar-context.tsx    # Sidebar open/close context
+│   │   └── actions/
+│   │       ├── analytics.ts       # Analytics server actions
+│   │       ├── coach.ts           # Coach server actions
+│   │       ├── goals.ts           # Goals server actions
+│   │       └── tasks.ts           # Tasks server actions
+│   │
+│   ├── hooks/                     # React custom hooks
+│   └── types/                     # Shared TypeScript types
+│
+├── next.config.ts
+├── tailwind.config.ts
+├── prisma.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-- sidebar goals/tasks are currently static UI
-- dashboard analytics are mock data
-- no full CRUD UI yet for goals, tasks, or memories
-- no dedicated daily planner UI yet
-- no reminder scheduler yet
-- no proactive AI nudges yet
-- no true multi-view navigation yet
-- the chat route currently returns plain text rather than token-by-token streaming
-- the README had not yet been updated to reflect the real project state
+---
 
-## Suggested next milestones
+## 🌍 Deployment
 
-### Phase 1: Productize the current foundation
-- add proper `.env.example`
-- add database migration workflow docs
-- add loading and empty states across panels
-- improve API error messages shown to users
+LifeOS is deployed on **Vercel** with a **Supabase PostgreSQL** database.
 
-### Phase 2: Make core entities visible
-- build CRUD UI for goals
-- build CRUD UI for tasks
-- build memory management UI
-- connect sidebar data to the database
+### Deploy Your Own
 
-### Phase 3: Improve AI behavior
-- persist and replay recent chat history from the database
-- support streaming responses properly
-- add tool-like actions for planning and task creation
-- add model/provider configuration
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rudranil723/LifeOS)
 
-### Phase 4: Build the LifeOS promise
-- AI smart planner
-- learning coach workflows
-- reminder engine
-- analytics from real stored activity
+**Steps:**
+1. Fork this repository
+2. Connect your fork to Vercel
+3. Add all [environment variables](#-environment-variables) in the Vercel project settings
+4. Vercel will auto-run `npm install` (which triggers `prisma generate` via `postinstall`)
+5. Run `npx prisma migrate deploy` against your production database once
 
-## Notes for recruiters/portfolio viewers
+### CI/CD
+- Every push to `main` triggers an automatic Vercel deployment
+- Prisma Client is regenerated on every deploy via the `postinstall` hook
+- Environment variables are managed entirely in Vercel's dashboard
 
-LifeOS is being built as a personal AI operating system rather than just a chatbot. The project already demonstrates:
+---
 
-- full-stack Next.js architecture
-- auth + DB + AI integration
-- context-aware prompting
-- scalable schema design for future product expansion
-- a polished dark UI direction suitable for a portfolio project
+## 🗺 Roadmap
 
-## License
+- [ ] **Real-time reminders** — Push/email notifications for scheduled reminders via `Reminder` model
+- [ ] **Streak system UI** — Visual streak counter on the dashboard
+- [ ] **AI memory editor** — Let users view and manually manage their `Memory` records
+- [ ] **Multi-LLM support** — Provider selection (Gemini, Claude, GPT-4o) via AI SDK vendor abstraction
+- [ ] **Mobile PWA** — Progressive Web App support for on-the-go access
+- [ ] **Collaboration** — Shared goals and accountability buddy features
+- [ ] **Export / Reports** — Weekly PDF/email productivity reports
 
-No license has been added yet. If you plan to make this public for collaboration, add a license file.
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m 'feat: add your feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request
+
+Please ensure your code passes linting (`npm run lint`) before submitting.
+
+---
+
+## 📜 License
+
+This project is private and proprietary. All rights reserved.
+
+---
+
+<div align="center">
+
+**Built with ❤️ using Next.js, Prisma, Clerk, and OpenRouter**
+
+[🚀 Try LifeOS Live](https://life-os-g5ap.vercel.app/)
+
+</div>
